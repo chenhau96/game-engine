@@ -27,8 +27,6 @@ public class GameController : MonoBehaviour {
 		// Set initial UI text for score and lives
 		scoreText.text = "Score: " + score;
 		livesText.text = "Lives: " + lives;
-		
-		
 	}
 	
 	// Update is called once per frame
@@ -44,43 +42,54 @@ public class GameController : MonoBehaviour {
 		}
 	}
 	
+	// Add score function 
 	public void AddScore() {
-		score++;
+		// Each food pacman consumes will add 10 score
+		score += 10;
+		
+		// Update the scoreText UI
 		scoreText.text = "Score: " + score;
-		Debug.Log(food.Length);
 	}
 	
+	// Reduce pacman lives count function
 	public void ReduceLives() {
+		// reduce lives count by 1
 		lives--;
 		
+		// If lives reaches 0, game lost
 		if (lives <= 0)
 			gameLost();
 		
+		// Update the livesText UI
 		livesText.text = "Lives: " + lives;
 	}
 	
+	// When the game is won, show the winText
 	public void gameWin() {
 		winText.enabled = true;
 		Time.timeScale = 0f;
 	}
 	
+	// When the game is lost, show the gameOverText
 	public void gameLost() {
 		gameOverText.enabled = true;
 		Time.timeScale = 0f;
 	}
 	
-	//powerUp 
+	// PowerUp 
 	public void PowerUpCollected() {
 		PowerUp();
+		
+		// Change pacman's state back to normal after 5 seconds
 		Invoke("Normal" , 5f);
 	}
 	
-	//Destroy ghost onTriggerEnter
+	// Destroy ghost onTriggerEnter
 	void PowerUp(){
-		PacmanController.PU=true;
+		PacmanController.PU = true;
 	}
 	
 	void Normal(){
-		PacmanController.PU =false;
+		PacmanController.PU = false;
 	}
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PacmanController : MonoBehaviour {
-
-	public float moveSpeed = 30f;
+	
+	public float moveSpeed = 15f;
 	private Animator animator = null;
 	private Vector3 up = Vector3.zero,
 					right = new Vector3(0,90,0),
@@ -13,15 +13,20 @@ public class PacmanController : MonoBehaviour {
 					currentDirection = Vector3.zero;
 					
 	private Vector3 initialPosition = Vector3.zero;
-
+	
+	private bool isMoving;
+	private bool isDead;
+	
     // Timer for respawning the pacman when it's died
     private float deadTime = 0f;
 	
+	// Reference of GameController script
 	private GameController gameController;
 	
 	//to check if Pacman has powerUp
 	public static bool PU = false;
 	
+	// Reset pacman initial state
 	public void Reset(){
 		// Set pacman position to starting position;
 		transform.position = initialPosition;
@@ -36,15 +41,17 @@ public class PacmanController : MonoBehaviour {
 		initialPosition = transform.position;
 		animator = GetComponent<Animator>();
 		
+		// Start pacman at initial state
 		Reset();
 		
+		// Get the reference of the GameController script
 		gameController = GameObject.FindObjectOfType<GameController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		var isMoving = true;
-		var isDead = animator.GetBool("isDead");
+		isMoving = true;
+		isDead = animator.GetBool("isDead");
 
         if (isDead)
         {
@@ -80,19 +87,32 @@ public class PacmanController : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other){
+		// If pacman collides with enenmy
 		if (other.gameObject.CompareTag("Enemy"))
         {
-			Destroy(other.gameObject);
-            animator.SetBool("isDead", true);
-			gameController.ReduceLives();
+			// with powerup, enemy will die
+			if (PU) {
+				Destroy(other.gameObject);
+			}
+			// without powerup, destroy enemy object and
+			// set isDead to true and reduce pacman lives
+			else {
+				Destroy(other.gameObject);
+				animator.SetBool("isDead", true);
+				gameController.ReduceLives();
+			}
         }
 		
+		// If pacman collides food, destroy the food object
+		// and add score.
 		if (other.gameObject.CompareTag("Food"))
         {
             Destroy(other.gameObject);
 			gameController.AddScore();
         }
 		
+		// If pacman collides powerup, destroy the powerup and
+		// it will gain the ability to destroy enemy
 		if (other.gameObject.CompareTag("PowerUp"))
 		{
 			Destroy(other.gameObject);
