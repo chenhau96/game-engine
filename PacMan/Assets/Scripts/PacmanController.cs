@@ -107,6 +107,7 @@ public class PacmanController : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other){
+		/*
 		// If pacman collides with enenmy
 		if (other.gameObject.CompareTag("Enemy"))
         {
@@ -123,7 +124,7 @@ public class PacmanController : MonoBehaviour {
 			}
 			PlayDeathSound();
         }
-		
+		*/
 		// If pacman collides food, destroy the food object
 		// and add score.
 		if (other.gameObject.CompareTag("Food"))
@@ -140,6 +141,24 @@ public class PacmanController : MonoBehaviour {
 			Destroy(other.gameObject);
 			gameController.PowerUpCollected();
 			PlayChompSound2();
+		}
+	}
+	
+	void OnCollisionEnter(Collision collision) {
+		// If pacman collides with enenmy
+		if (collision.gameObject.CompareTag("Enemy")) {
+			// with powerup, enemy will die
+			if (PU) {
+				Destroy(collision.gameObject);
+			}
+			// without powerup, destroy enemy object and
+			// set isDead to true and reduce pacman lives
+			else {
+				Destroy(collision.gameObject);
+				animator.SetBool("isDead", true);
+				gameController.ReduceLives();
+			}
+			PlayDeathSound();
 		}
 	}
 }

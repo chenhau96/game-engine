@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1635,6 +1635,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1846249597842174, guid: 732bd0ec10f3e84408d76316a5fdb7f5,
     type: 2}
   m_PrefabInternal: {fileID: 869111808}
+--- !u!54 &405424794
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 405424793}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!114 &405424799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1912,6 +1927,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1412861944504040, guid: f2e102f31b22528478a94e63a2afa68f,
     type: 2}
   m_PrefabInternal: {fileID: 782462080}
+--- !u!54 &503431740
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 503431739}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!114 &503431745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3149,14 +3179,20 @@ Prefab:
     - target: {fileID: 136284899258658178, guid: f2e102f31b22528478a94e63a2afa68f,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54638220464544966, guid: f2e102f31b22528478a94e63a2afa68f,
         type: 2}
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 54638220464544966, guid: f2e102f31b22528478a94e63a2afa68f,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 54638220464544966, guid: f2e102f31b22528478a94e63a2afa68f, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: f2e102f31b22528478a94e63a2afa68f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &791132125
@@ -3845,14 +3881,20 @@ Prefab:
     - target: {fileID: 136714821305250424, guid: 732bd0ec10f3e84408d76316a5fdb7f5,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54391829243822408, guid: 732bd0ec10f3e84408d76316a5fdb7f5,
         type: 2}
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 54391829243822408, guid: 732bd0ec10f3e84408d76316a5fdb7f5,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 54391829243822408, guid: 732bd0ec10f3e84408d76316a5fdb7f5, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 732bd0ec10f3e84408d76316a5fdb7f5, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &869980315
@@ -4802,6 +4844,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1133914481039454, guid: 4c2615752e466a5439bdbae5e5e78419,
     type: 2}
   m_PrefabInternal: {fileID: 1623892380}
+--- !u!54 &1045598169
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1045598168}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!114 &1045598174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7572,14 +7629,20 @@ Prefab:
     - target: {fileID: 136659646208274410, guid: 4c2615752e466a5439bdbae5e5e78419,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54598456727534646, guid: 4c2615752e466a5439bdbae5e5e78419,
         type: 2}
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 54598456727534646, guid: 4c2615752e466a5439bdbae5e5e78419,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 54598456727534646, guid: 4c2615752e466a5439bdbae5e5e78419, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 4c2615752e466a5439bdbae5e5e78419, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &1624072531 stripped
@@ -8463,6 +8526,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   obstacleRange: 5
+--- !u!54 &1780043778
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1780043776}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!4 &1781319545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4018915361255070, guid: 57c1da9d0bfcacc4891ffb7ca1a68b20,
@@ -8668,9 +8746,20 @@ Prefab:
     - target: {fileID: 136436073075088174, guid: 281b2b4480a7b124c98b014fbf35560d,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 54133131629492004, guid: 281b2b4480a7b124c98b014fbf35560d,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54133131629492004, guid: 281b2b4480a7b124c98b014fbf35560d,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 54133131629492004, guid: 281b2b4480a7b124c98b014fbf35560d, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 281b2b4480a7b124c98b014fbf35560d, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1821499131
