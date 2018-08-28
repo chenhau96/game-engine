@@ -5,6 +5,10 @@ using UnityEngine;
 public class PacmanController : MonoBehaviour {
 	
 	public float moveSpeed = 15f;
+	public AudioClip chomp1;
+	public AudioClip chomp2;
+	public AudioClip Death;
+	private AudioSource audio;
 	private Animator animator = null;
 	private Vector3 up = Vector3.zero,
 					right = new Vector3(0,90,0),
@@ -40,6 +44,7 @@ public class PacmanController : MonoBehaviour {
 		QualitySettings.vSyncCount = 0;
 		initialPosition = transform.position;
 		animator = GetComponent<Animator>();
+		audio = transform.GetComponent<AudioSource>();
 		
 		// Start pacman at initial state
 		Reset();
@@ -86,6 +91,21 @@ public class PacmanController : MonoBehaviour {
 
 	}
 	
+	void PlayChompSound1(){
+		// play audio chomp1
+		audio.PlayOneShot(chomp1);
+	}
+	
+	void PlayChompSound2(){
+		// play audio chomp2
+		audio.PlayOneShot(chomp2);
+	}
+	
+	void PlayDeathSound(){
+		// play audio Death
+		audio.PlayOneShot(Death);
+	}
+	
 	void OnTriggerEnter(Collider other){
 		// If pacman collides with enenmy
 		if (other.gameObject.CompareTag("Enemy"))
@@ -101,6 +121,7 @@ public class PacmanController : MonoBehaviour {
 				animator.SetBool("isDead", true);
 				gameController.ReduceLives();
 			}
+			PlayDeathSound();
         }
 		
 		// If pacman collides food, destroy the food object
@@ -109,6 +130,7 @@ public class PacmanController : MonoBehaviour {
         {
             Destroy(other.gameObject);
 			gameController.AddScore();
+			PlayChompSound1();
         }
 		
 		// If pacman collides powerup, destroy the powerup and
@@ -117,6 +139,7 @@ public class PacmanController : MonoBehaviour {
 		{
 			Destroy(other.gameObject);
 			gameController.PowerUpCollected();
+			PlayChompSound2();
 		}
 	}
 }
