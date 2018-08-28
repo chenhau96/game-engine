@@ -19,6 +19,9 @@ public class PacmanController : MonoBehaviour {
 	
 	private GameController gameController;
 	
+	//to check if Pacman has powerUp
+	public static bool PU = false;
+	
 	public void Reset(){
 		// Set pacman position to starting position;
 		transform.position = initialPosition;
@@ -79,6 +82,7 @@ public class PacmanController : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag("Enemy"))
         {
+			Destroy(other.gameObject);
             animator.SetBool("isDead", true);
 			gameController.ReduceLives();
         }
@@ -87,7 +91,12 @@ public class PacmanController : MonoBehaviour {
         {
             Destroy(other.gameObject);
 			gameController.AddScore();
-        } 
-			
+        }
+		
+		if (other.gameObject.CompareTag("PowerUp"))
+		{
+			Destroy(other.gameObject);
+			gameController.PowerUpCollected();
+		}
 	}
 }
