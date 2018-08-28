@@ -17,7 +17,10 @@ public class PacmanController : MonoBehaviour {
     // Timer for respawning the pacman when it's died
     private float deadTime = 0f;
 	
+	private GameController gameController;
+	
 	public void Reset(){
+		// Set pacman position to starting position;
 		transform.position = initialPosition;
 		animator.SetBool("isDead",false);
 		animator.SetBool("isMoving",false);
@@ -31,6 +34,8 @@ public class PacmanController : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		
 		Reset();
+		
+		gameController = GameObject.FindObjectOfType<GameController>();
 	}
 	
 	// Update is called once per frame
@@ -53,24 +58,36 @@ public class PacmanController : MonoBehaviour {
             }
         }
 
-		if(Input.GetKey(KeyCode.UpArrow)) currentDirection = up;
-		else if(Input.GetKey(KeyCode.RightArrow)) currentDirection = right;
-		else if(Input.GetKey(KeyCode.DownArrow)) currentDirection = down;
-		else if(Input.GetKey(KeyCode.LeftArrow)) currentDirection = left;
-		else isMoving = false;
+		if (Input.GetKey(KeyCode.UpArrow)) 
+			currentDirection = up;
+		else if (Input.GetKey(KeyCode.RightArrow)) 
+			currentDirection = right;
+		else if (Input.GetKey(KeyCode.DownArrow)) 
+			currentDirection = down;
+		else if (Input.GetKey(KeyCode.LeftArrow)) 
+			currentDirection = left;
+		else 
+			isMoving = false;
 		
 		transform.localEulerAngles = currentDirection;
-		animator.SetBool("isMoving",isMoving);
-		if(isMoving)	
+		animator.SetBool ("isMoving",isMoving);
+		if (isMoving)	
 			transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
 
 	}
 	
 	void OnTriggerEnter(Collider other){
-		if(other.CompareTag("Enemy"))
+		if (other.gameObject.CompareTag("Enemy"))
         {
             animator.SetBool("isDead", true);
+			gameController.ReduceLives();
         }
+		
+		if (other.gameObject.CompareTag("Food"))
+        {
+            Destroy(other.gameObject);
+			gameController.AddScore();
+        } 
 			
 	}
 }

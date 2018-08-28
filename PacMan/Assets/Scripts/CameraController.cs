@@ -11,12 +11,15 @@ public class CameraController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+		// Get the offset between the camera position and the pacman position
         offset = transform.position - pacman.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+		// Update the camera position when the pacman moves around
+		// based on the offset
         transform.position = pacman.transform.position + offset;
     }
 }
