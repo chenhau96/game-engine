@@ -33,6 +33,9 @@ public class PacmanController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		var isMoving = true;
+		var isDead = animator.GetBool("isDead");
+		
+		if(isDead) isMoving = false;
 		if(Input.GetKey(KeyCode.UpArrow)) currentDirection = up;
 		else if(Input.GetKey(KeyCode.RightArrow)) currentDirection = right;
 		else if(Input.GetKey(KeyCode.DownArrow)) currentDirection = down;
@@ -45,5 +48,10 @@ public class PacmanController : MonoBehaviour {
 			transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
 		
 	
+	}
+	
+	void OnTriggerEnter(Collider other){
+		if(other.CompareTag("Enemy"))
+			animator.SetBool("isDead", true);
 	}
 }
