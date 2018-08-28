@@ -13,6 +13,9 @@ public class PacmanController : MonoBehaviour {
 					currentDirection = Vector3.zero;
 					
 	private Vector3 initialPosition = Vector3.zero;
+
+    // Timer for respawning the pacman when it's died
+    private float deadTime = 0f;
 	
 	public void Reset(){
 		transform.position = initialPosition;
@@ -34,8 +37,22 @@ public class PacmanController : MonoBehaviour {
 	void Update () {
 		var isMoving = true;
 		var isDead = animator.GetBool("isDead");
-		
-		if(isDead) isMoving = false;
+
+        if (isDead)
+        {
+            // Start timer when it dies
+            deadTime += Time.deltaTime;
+            isMoving = false;
+
+            // Respawn the pacman in initial position after 3 seconds
+            // and reset the timer
+            if (deadTime > 3)
+            {
+                Reset();
+                deadTime = 0f;
+            }
+        }
+
 		if(Input.GetKey(KeyCode.UpArrow)) currentDirection = up;
 		else if(Input.GetKey(KeyCode.RightArrow)) currentDirection = right;
 		else if(Input.GetKey(KeyCode.DownArrow)) currentDirection = down;
@@ -46,12 +63,14 @@ public class PacmanController : MonoBehaviour {
 		animator.SetBool("isMoving",isMoving);
 		if(isMoving)	
 			transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-		
-	
+
 	}
 	
 	void OnTriggerEnter(Collider other){
 		if(other.CompareTag("Enemy"))
-			animator.SetBool("isDead", true);
+        {
+            animator.SetBool("isDead", true);
+        }
+			
 	}
 }
