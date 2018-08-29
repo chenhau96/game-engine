@@ -6,6 +6,8 @@ public class GhostAI : MonoBehaviour {
 	public float speed = 10.0f;
 	public float obstacleRange = 5.0f;
 
+	
+
 	// Use this for initialization
 	void Start () {
 		
@@ -23,5 +25,9 @@ public class GhostAI : MonoBehaviour {
 				transform.Rotate(0, angle, 0);
 			}
 		}
+	
+
+		
+		
 	}
 }
