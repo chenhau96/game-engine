@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostAI : MonoBehaviour {
-	public float speed = 10.0f;
+	public float speed = 20.0f;
 	public float obstacleRange = 5.0f;
-
-	
 
 	// Use this for initialization
 	void Start () {
