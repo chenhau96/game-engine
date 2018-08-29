@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour {
 	// Array of GameObject Food to keep track the array length
 	private GameObject[] food;
 	
+	private GameObject[] ghost;
 	// Use this for initialization
 	void Start () {
 		// Set initial value for score and lives
@@ -87,9 +88,21 @@ public class GameController : MonoBehaviour {
 	// Destroy ghost onTriggerEnter
 	void PowerUp(){
 		PacmanController.PU = true;
+		//get all the ghost gameObjects 
+			ghost = GameObject.FindGameObjectsWithTag("Enemy");
+			//loop through all the ghost gameObjects
+			  foreach (GameObject go in ghost){
+				 //Change the color of the ghost
+				  go.GetComponent<Renderer>().material.color = new Color(0, 198, 255);
+			  }
 	}
 	
 	void Normal(){
 		PacmanController.PU = false;
+		ghost = GameObject.FindGameObjectsWithTag("Enemy");
+			  foreach (GameObject go in ghost){
+				  //Change the color of the ghost to its original red color
+				  go.GetComponent<Renderer>().material.color = Color.red;
+			  }
 	}
 }
