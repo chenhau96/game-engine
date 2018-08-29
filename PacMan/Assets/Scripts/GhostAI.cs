@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostAI : MonoBehaviour {
-	public float speed = 20.0f;
+	public float speed = 10.0f;
+	public float chaseSpeed = 5.0f;
 	public float obstacleRange = 5.0f;
 
 	// Use this for initialization
@@ -13,15 +14,33 @@ public class GhostAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// Use to determine the speed of the AI when it is chasing pacman
+        float step = chaseSpeed * Time.deltaTime;
+		
+		// Move the ghost with the speed defined
 		transform.Translate(0, 0, speed * Time.deltaTime);
+		
+		//Determine the direction of ghost using ray 
 		Ray ray = new Ray(transform.position, transform.forward);
 		RaycastHit hit;
 		
+		
 		if (Physics.SphereCast(ray, 0.75f, out hit)) {
-			if(hit.distance < obstacleRange) {
+			// Get the object hit by the ray
+			GameObject hitObject = hit.transform.gameObject;
+
+			if (hitObject.name == "Pacman") {
+				// If the object is a pacman, move towards the pacman
+				transform.position = Vector3.MoveTowards(transform.position, 
+					hitObject.transform.position, step);
+			}
+			else if(hit.distance < obstacleRange) {
+				//When the ghost near a wall or other ghost object,
+				//rotate the ghost in a degree between -90 (left) to 90 (right)
 				float angle = Random.Range(-90, 90);
 				transform.Rotate(0, angle, 0);
 			}
+			
 		}
 	
 
