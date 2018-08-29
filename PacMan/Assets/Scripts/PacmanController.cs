@@ -38,7 +38,7 @@ public class PacmanController : MonoBehaviour {
 	
 	//to check if Pacman has powerUp
 	public bool hasPowerUp = false;
-	
+
 	// Reset pacman initial state
 	public void Reset(){
 		// Set pacman position to starting position;
@@ -73,11 +73,12 @@ public class PacmanController : MonoBehaviour {
             deadTime += Time.deltaTime;
             isMoving = false;
 
-            // Respawn the pacman in initial position after 3 seconds
-            // and reset the timer
+            // Respawn the pacman in initial position after 3 seconds,
+            // reset the timer and resume the ghosts' movement
             if (deadTime > respawnTime)
             {
                 Reset();
+				gameController.ResumeGhostMovement();
                 deadTime = 0f;
             }
         }
@@ -144,13 +145,16 @@ public class PacmanController : MonoBehaviour {
 				Destroy(collision.gameObject);
 			}
 			// without powerup, destroy enemy object and
-			// set isDead to true and reduce pacman lives
+			// set isDead animation to true and reduce pacman lives
+			// When pacman dies, stop all the ghosts' movement
 			else {
 				Destroy(collision.gameObject);
 				animator.SetBool("isDead", true);
 				gameController.ReduceLives();
+				gameController.StopGhostMovement();
 			}
 			PlayDeathSound();
 		}
 	}
+
 }

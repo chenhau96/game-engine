@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
 	private GameObject[] ghosts;
 	
 	PacmanController pacmanControllerScript;
+	GhostAI[] ghostAIScripts;
 	
 	// Use this for initialization
 	void Start () {
@@ -33,6 +34,7 @@ public class GameController : MonoBehaviour {
 		scoreText.text = "Score: " + score;
 		livesText.text = "Lives: " + lives;
 		
+		// Get reference of the PacmanController script
 		pacmanControllerScript = GameObject.FindObjectOfType<PacmanController>();
 	}
 	
@@ -47,6 +49,9 @@ public class GameController : MonoBehaviour {
 		{
 			gameWin();
 		}
+		
+		// Get all the references of the GhostAI scripts
+		ghostAIScripts = GameObject.FindObjectsOfType<GhostAI>();
 	}
 	
 	// Add score function 
@@ -72,12 +77,14 @@ public class GameController : MonoBehaviour {
 	}
 	
 	// When the game is won, show the winText
+	// and freeze the game
 	public void gameWin() {
 		winText.enabled = true;
 		Time.timeScale = 0f;
 	}
 	
 	// When the game is lost, show the gameOverText
+	// and freeze the game
 	public void gameLost() {
 		gameOverText.enabled = true;
 		Time.timeScale = 0f;
@@ -92,7 +99,7 @@ public class GameController : MonoBehaviour {
 	}
 	
 	// Gain the ability to destroy ghosts
-	void PowerUp(){
+	void PowerUp() {
 		// Set hasPowerUp to true
 		pacmanControllerScript.hasPowerUp = true;
 		
@@ -107,7 +114,7 @@ public class GameController : MonoBehaviour {
 	}
 	
 	// Return pacman to normal state
-	void Normal(){
+	void Normal() {
 		// Set hasPowerUp to false
 		pacmanControllerScript.hasPowerUp = false;
 		
@@ -118,5 +125,15 @@ public class GameController : MonoBehaviour {
 		}
 	}
 	
+	// Stop all ghost movement
+	public void StopGhostMovement() {
+		foreach (GhostAI g in ghostAIScripts)
+			g.speed = 0f;
+	}
 	
+	// Resume all ghost movement 
+	public void ResumeGhostMovement() {
+		foreach (GhostAI g in ghostAIScripts)
+			g.speed = 10f;
+	}
 }

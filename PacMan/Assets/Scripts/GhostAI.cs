@@ -6,12 +6,10 @@ public class GhostAI : MonoBehaviour {
 	public float speed = 10.0f;
 	public float chaseSpeed = 5.0f;
 	public float obstacleRange = 5.0f;
-	
-	PacmanController pacmanControllerScript;
 
 	// Use this for initialization
 	void Start () {
-		pacmanControllerScript = GameObject.FindObjectOfType<PacmanController>();
+		
 	}
 	
 	// Update is called once per frame

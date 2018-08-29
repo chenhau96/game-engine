@@ -8,7 +8,7 @@ public class SpawnEnemy : MonoBehaviour {
 	private GameObject[] ghosts;
 	
 	// Three x-coordinates in the enemy base for ghost respawning
-	private int[] enemyPos = new int[] {-6, 0, 6};
+	private int[] enemyPosX = new int[] {-6, 0, 6};
 	
 	// To keep track the position to be respawned
 	private int currIndex;
@@ -53,7 +53,7 @@ public class SpawnEnemy : MonoBehaviour {
 	// Spawn Enemy Function
 	public void spawnEnemy() {
 		// Set the spawn position of ghost
-		Vector3 spawnPosition = new Vector3(enemyPos[currIndex], transform.position.y,
+		Vector3 spawnPosition = new Vector3(enemyPosX[currIndex], transform.position.y,
 			transform.position.z);
 		
 		// Spawn a ghost
