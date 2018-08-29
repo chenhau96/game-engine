@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PacmanController : MonoBehaviour {
 	
-	public float moveSpeed = 15f;
-	public AudioClip chomp1;
-	public AudioClip chomp2;
-	public AudioClip Death;
+	// Audio clip for pacman action
+	public AudioClip chompFoodSound;
+	public AudioClip chompPowerupSound;
+	public AudioClip deathSound;
 	private AudioSource audio;
+	
+	public float moveSpeed = 15f;
+	
 	private Animator animator = null;
 	private Vector3 up = Vector3.zero,
 					right = new Vector3(0,90,0),
@@ -46,7 +50,7 @@ public class PacmanController : MonoBehaviour {
 		QualitySettings.vSyncCount = 0;
 		initialPosition = transform.position;
 		animator = GetComponent<Animator>();
-		audio = transform.GetComponent<AudioSource>();
+		audio = GetComponent<AudioSource>();
 		
 		// Start pacman at initial state
 		Reset();
@@ -93,19 +97,19 @@ public class PacmanController : MonoBehaviour {
 
 	}
 	
-	void PlayChompSound1(){
-		// play audio chomp1
-		audio.PlayOneShot(chomp1);
+	// Play audio when pacman eats a food
+	void PlayChompFoodSound(){
+		audio.PlayOneShot(chompFoodSound);
 	}
 	
-	void PlayChompSound2(){
-		// play audio chomp2
-		audio.PlayOneShot(chomp2);
+	// Play audio when pacman eats a powerup
+	void PlayChompPowerupSound(){
+		audio.PlayOneShot(chompPowerupSound);
 	}
 	
+	// Play audio when pacman dies
 	void PlayDeathSound(){
-		// play audio Death
-		audio.PlayOneShot(Death);
+		audio.PlayOneShot(deathSound);
 	}
 	
 	void OnTriggerEnter(Collider other){
@@ -133,7 +137,7 @@ public class PacmanController : MonoBehaviour {
         {
             Destroy(other.gameObject);
 			gameController.AddScore();
-			PlayChompSound1();
+			PlayChompFoodSound();
         }
 		
 		// If pacman collides powerup, destroy the powerup and
@@ -142,7 +146,7 @@ public class PacmanController : MonoBehaviour {
 		{
 			Destroy(other.gameObject);
 			gameController.PowerUpCollected();
-			PlayChompSound2();
+			PlayChompPowerupSound();
 		}
 	}
 	
