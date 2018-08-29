@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Floating : MonoBehaviour {
-	
+	/*
+	 * This script is used on the PowerUp to make it
+	 * floating up and down
+	 */
+	 
 	// The amplitude and the frequency of the floating
 	public float amplitude = 0.5f;
 	public float frequency = 1f;

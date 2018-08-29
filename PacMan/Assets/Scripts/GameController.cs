@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour {
 	// Array of GameObject ghosts
 	private GameObject[] ghosts;
 	
+	PacmanController pacmanControllerScript;
+	
 	// Use this for initialization
 	void Start () {
 		// Set initial value for score and lives
@@ -30,6 +32,8 @@ public class GameController : MonoBehaviour {
 		// Set initial UI text for score and lives
 		scoreText.text = "Score: " + score;
 		livesText.text = "Lives: " + lives;
+		
+		pacmanControllerScript = GameObject.FindObjectOfType<PacmanController>();
 	}
 	
 	// Update is called once per frame
@@ -87,26 +91,29 @@ public class GameController : MonoBehaviour {
 		Invoke("Normal" , 5f);
 	}
 	
-	// Destroy ghost onTriggerEnter
+	// Gain the ability to destroy ghosts
 	void PowerUp(){
-		PacmanController.PU = true;
+		// Set hasPowerUp to true
+		pacmanControllerScript.hasPowerUp = true;
 		
 		// Get all the ghost gameObjects 
 		ghosts = GameObject.FindGameObjectsWithTag("Enemy");
 		
 		// Loop through all the ghost gameObjects
 		foreach (GameObject ghost in ghosts){
-			// Change the color of the ghost
+			// Change the color of the ghost to lightblue color
 			ghost.GetComponent<Renderer>().material.color = new Color(0, 198, 255);
 		}
 	}
 	
+	// Return pacman to normal state
 	void Normal(){
-		PacmanController.PU = false;
+		// Set hasPowerUp to false
+		pacmanControllerScript.hasPowerUp = false;
 		
 		ghosts = GameObject.FindGameObjectsWithTag("Enemy");
 		foreach (GameObject ghost in ghosts){
-			//Change the color of the ghost to its original red color
+			// Change the color of the ghost to its original red color
 			ghost.GetComponent<Renderer>().material.color = Color.red;
 		}
 	}

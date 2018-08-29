@@ -27,14 +27,17 @@ public class PacmanController : MonoBehaviour {
 	
 	private GameObject[] ghost;
 	
-    // Timer for respawning the pacman when it's died
+    // To keep track the duration when pacman dies
     private float deadTime = 0f;
+	
+	// Time required to respawn pacman (3s)
+	private float respawnTime = 3f;
 	
 	// Reference of GameController script
 	private GameController gameController;
 	
 	//to check if Pacman has powerUp
-	public static bool PU = false;
+	public bool hasPowerUp = false;
 	
 	// Reset pacman initial state
 	public void Reset(){
@@ -72,7 +75,7 @@ public class PacmanController : MonoBehaviour {
 
             // Respawn the pacman in initial position after 3 seconds
             // and reset the timer
-            if (deadTime > 3)
+            if (deadTime > respawnTime)
             {
                 Reset();
                 deadTime = 0f;
@@ -113,24 +116,6 @@ public class PacmanController : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other){
-		/*
-		// If pacman collides with enenmy
-		if (other.gameObject.CompareTag("Enemy"))
-        {
-			// with powerup, enemy will die
-			if (PU) {
-				Destroy(other.gameObject);
-			}
-			// without powerup, destroy enemy object and
-			// set isDead to true and reduce pacman lives
-			else {
-				Destroy(other.gameObject);
-				animator.SetBool("isDead", true);
-				gameController.ReduceLives();
-			}
-			PlayDeathSound();
-        }
-		*/
 		// If pacman collides food, destroy the food object
 		// and add score.
 		if (other.gameObject.CompareTag("Food"))
@@ -141,7 +126,8 @@ public class PacmanController : MonoBehaviour {
         }
 		
 		// If pacman collides powerup, destroy the powerup and
-		// it will gain the ability to destroy enemy
+		// call PowerUpCollected() in GameController in order to have
+		// the ability to eat the enemy
 		if (other.gameObject.CompareTag("PowerUp"))
 		{
 			Destroy(other.gameObject);
@@ -154,7 +140,7 @@ public class PacmanController : MonoBehaviour {
 		// If pacman collides with enenmy
 		if (collision.gameObject.CompareTag("Enemy")) {
 			// with powerup, enemy will die
-			if (PU) {
+			if (hasPowerUp) {
 				Destroy(collision.gameObject);
 			}
 			// without powerup, destroy enemy object and

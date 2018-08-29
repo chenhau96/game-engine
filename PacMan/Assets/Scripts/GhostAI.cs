@@ -6,10 +6,12 @@ public class GhostAI : MonoBehaviour {
 	public float speed = 10.0f;
 	public float chaseSpeed = 5.0f;
 	public float obstacleRange = 5.0f;
+	
+	PacmanController pacmanControllerScript;
 
 	// Use this for initialization
 	void Start () {
-		
+		pacmanControllerScript = GameObject.FindObjectOfType<PacmanController>();
 	}
 	
 	// Update is called once per frame
@@ -18,7 +20,7 @@ public class GhostAI : MonoBehaviour {
         float step = chaseSpeed * Time.deltaTime;
 		
 		// Move the ghost with the speed defined
-		transform.Translate(0, 0, speed * Time.deltaTime);
+		transform.Translate(0f, 0f, speed * Time.deltaTime);
 		
 		//Determine the direction of ghost using ray 
 		Ray ray = new Ray(transform.position, transform.forward);
@@ -31,6 +33,7 @@ public class GhostAI : MonoBehaviour {
 
 			if (hitObject.name == "Pacman") {
 				// If the object is a pacman, move towards the pacman
+				// This only happens when pacman is in front of the ghost
 				transform.position = Vector3.MoveTowards(transform.position, 
 					hitObject.transform.position, step);
 			}
@@ -42,9 +45,5 @@ public class GhostAI : MonoBehaviour {
 			}
 			
 		}
-	
-
-		
-		
 	}
 }
