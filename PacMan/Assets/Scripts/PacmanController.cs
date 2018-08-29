@@ -21,6 +21,8 @@ public class PacmanController : MonoBehaviour {
 	private bool isMoving;
 	private bool isDead;
 	
+	private GameObject[] ghost;
+	
     // Timer for respawning the pacman when it's died
     private float deadTime = 0f;
 	
