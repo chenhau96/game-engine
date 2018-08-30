@@ -36,7 +36,7 @@ public class PacmanController : MonoBehaviour {
 	// Reference of GameController script
 	private GameController gameController;
 	
-	//to check if Pacman has powerUp
+	// to check if Pacman has powerUp
 	public bool hasPowerUp = false;
 
 	// Reset pacman initial state
@@ -50,8 +50,12 @@ public class PacmanController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		QualitySettings.vSyncCount = 0;
+		// Set initial position of pacman using its current position
+		// when the game starts, the initial position will later used
+		// to respawn the pacman in this position
 		initialPosition = transform.position;
+		
+		// Get the animation and audio components attached on pacman
 		animator = GetComponent<Animator>();
 		audio = GetComponent<AudioSource>();
 		
@@ -82,7 +86,8 @@ public class PacmanController : MonoBehaviour {
                 deadTime = 0f;
             }
         }
-
+		
+		// Arrow keys to control the pacman direction
 		if (Input.GetKey(KeyCode.UpArrow)) 
 			currentDirection = up;
 		else if (Input.GetKey(KeyCode.RightArrow)) 
@@ -94,11 +99,14 @@ public class PacmanController : MonoBehaviour {
 		else 
 			isMoving = false;
 		
+		// To determine the pacman's facing direction
 		transform.localEulerAngles = currentDirection;
+		
 		animator.SetBool ("isMoving",isMoving);
-		if (isMoving)	
+		if (isMoving) {
+			// Move pacman forward according to the direction pacman is facing
 			transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-
+		}
 	}
 	
 	// Play audio when pacman eats a food
@@ -128,7 +136,7 @@ public class PacmanController : MonoBehaviour {
 		
 		// If pacman collides powerup, destroy the powerup and
 		// call PowerUpCollected() in GameController in order to have
-		// the ability to eat the enemy
+		// the ability to destroy the enemy
 		if (other.gameObject.CompareTag("PowerUp"))
 		{
 			Destroy(other.gameObject);
@@ -138,7 +146,7 @@ public class PacmanController : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter(Collision collision) {
-		// If pacman collides with enenmy
+		// If pacman collides with ghost
 		if (collision.gameObject.CompareTag("Enemy")) {
 			// with powerup, enemy will die
 			if (hasPowerUp) {
@@ -146,13 +154,15 @@ public class PacmanController : MonoBehaviour {
 			}
 			// without powerup, destroy enemy object and
 			// set isDead animation to true and reduce pacman lives
-			// When pacman dies, stop all the ghosts' movement
+			// When pacman dies, temporary stop all the ghosts' movement
 			else {
 				Destroy(collision.gameObject);
 				animator.SetBool("isDead", true);
 				gameController.ReduceLives();
 				gameController.StopGhostMovement();
 			}
+			
+			// Play death sound whenever pacman collides with ghost
 			PlayDeathSound();
 		}
 	}
